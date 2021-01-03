@@ -10,9 +10,9 @@ namespace Task1.Tests
     public class Tests
     {
         [TestCase(6250, ExpectedResult = 0)]
-        [TestCase(0, ExpectedResult = 5)]
-        [TestCase(-1, ExpectedResult = 6)]
-        [TestCase(1, ExpectedResult = 4)]
+        [TestCase(0, ExpectedResult = 6)]
+        [TestCase(-1, ExpectedResult = 10)]
+        [TestCase(1, ExpectedResult = 5)]
         public int Linq1_Limit_ReturnsCustomersCount(decimal limit)
         {
             return LinqTask.Linq1(DataSource.Customers, limit).Count();
@@ -69,9 +69,9 @@ namespace Task1.Tests
         }
 
         [TestCase(800, ExpectedResult = 2)]
-        [TestCase(0, ExpectedResult = 5)]
-        [TestCase(-1, ExpectedResult = 5)]
-        [TestCase(1, ExpectedResult = 4)]
+        [TestCase(0, ExpectedResult = 6)]
+        [TestCase(-1, ExpectedResult = 6)]
+        [TestCase(1, ExpectedResult = 5)]
         public int Linq3_Limit_ReturnsCustomersCount(decimal limit)
         {
             return LinqTask.Linq3(DataSource.Customers, limit).Count();
@@ -88,7 +88,7 @@ namespace Task1.Tests
         {
             var result = LinqTask.Linq4(DataSource.Customers).ToList();
 
-            Assert.That(() => result.Count, Is.EqualTo(DataSource.Customers.Count - 1));
+            Assert.That(() => result.Count, Is.EqualTo(DataSource.Customers.Count - 4));
             foreach (var (customer, dateOfEntry) in result)
             {
                 Assert.That(FindCustomerOrdersMinDate(customer), Is.EqualTo(dateOfEntry));
@@ -106,17 +106,18 @@ namespace Task1.Tests
         {
             var result = LinqTask.Linq5(DataSource.Customers).ToList();
 
-            Assert.That(() => result.Count, Is.EqualTo(DataSource.Customers.Count - 1));
+            Assert.That(() => result.Count, Is.EqualTo(DataSource.Customers.Count - 4));
             foreach (var (customer, dateOfEntry) in result)
             {
                 Assert.That(FindCustomerOrdersMinDate(customer), Is.EqualTo(dateOfEntry));
             }
 
-            Assert.That(result[0].customer, Is.EqualTo(DataSource.Customers[1]));
-            Assert.That(result[1].customer, Is.EqualTo(DataSource.Customers[3]));
-            Assert.That(result[2].customer, Is.EqualTo(DataSource.Customers[2]));
-            Assert.That(result[3].customer, Is.EqualTo(DataSource.Customers[4]));
-            Assert.That(result[4].customer, Is.EqualTo(DataSource.Customers[0]));
+            Assert.That(result[0].customer, Is.EqualTo(DataSource.Customers[6]));
+            Assert.That(result[1].customer, Is.EqualTo(DataSource.Customers[1]));
+            Assert.That(result[2].customer, Is.EqualTo(DataSource.Customers[3]));
+            Assert.That(result[3].customer, Is.EqualTo(DataSource.Customers[2]));
+            Assert.That(result[4].customer, Is.EqualTo(DataSource.Customers[4]));
+            Assert.That(result[5].customer, Is.EqualTo(DataSource.Customers[0]));
         }
 
         [Test]
@@ -126,9 +127,16 @@ namespace Task1.Tests
         }
 
         [Test]
-        public void Linq6_Customers_Returns5()
+        public void Linq6_Customers_ReturnsFilteredCustomers()
         {
-            Assert.That(LinqTask.Linq6(DataSource.Customers).Count(), Is.EqualTo(5)); 
+            var expectedResult = DataSource.Customers.ToList();
+            expectedResult.RemoveAt(0);
+            expectedResult.RemoveAt(0);
+            expectedResult.RemoveAt(3);
+
+            var result = LinqTask.Linq6(DataSource.Customers).ToList();
+
+            CollectionAssert.AreEquivalent(expectedResult, result);
         }
 
         [Test]
@@ -150,12 +158,12 @@ namespace Task1.Tests
                         new Linq7UnitsInStockGroup
                         {
                             UnitsInStock = 39,
-                            Prices = new [] { 18.0000M, 19.0000M }
+                            Prices = new [] { 19.0000M }
                         },
                         new Linq7UnitsInStockGroup
                         {
                             UnitsInStock = 17,
-                            Prices = new [] { 18.0000M, 19.0000M }
+                            Prices = new [] { 18.0000M }
                         }
                     }
                 },
@@ -167,12 +175,12 @@ namespace Task1.Tests
                         new Linq7UnitsInStockGroup
                         {
                             UnitsInStock = 15,
-                            Prices = new [] { 10.0000M, 30.0000M, 40.0000M }
+                            Prices = new [] { 10.0000M, 40.0000M }
                         },
                         new Linq7UnitsInStockGroup
                         {
                             UnitsInStock = 13,
-                            Prices = new [] { 10.0000M, 30.0000M, 40.0000M }
+                            Prices = new [] { 30.0000M }
                         }
                     }
                 }
@@ -223,9 +231,12 @@ namespace Task1.Tests
         {
             var expected = new List<(string city, int averageIncome, int averageIntensity)>
             {
-                ("Berlin", 2022, 3),
+                ("Berlin", 2023, 3),
                 ("Mexico D.F.", 680, 2),
-                ("London", 690, 1)
+                ("London", 690, 1),
+                ("Warszawa", 1, 0),
+                ("Sao Paulo", 0, 0),
+                ("USA", 0, 0)
             };
 
             var result = LinqTask.Linq9(DataSource.Customers).ToList();

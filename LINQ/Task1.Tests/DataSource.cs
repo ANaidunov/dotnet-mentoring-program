@@ -141,15 +141,15 @@ namespace Task1.Tests
                 City = "Berlin",
                 PostalCode = "12209",
                 Country = "Germany",
-                Phone = "030-0074321",
-                Fax = "030-0076545",
+                Phone = "(012)030-0074321",
+                Fax = "(012)030-0076545",
                 Orders = new []
                 {
                     new Order
                     {
                         OrderID = 10643,
                         OrderDate = DateTime.Parse("1997-08-25T00:00:00"),
-                        Total = 814.50m
+                        Total = 814.70m
                     },
                     new Order
                     {
@@ -163,7 +163,8 @@ namespace Task1.Tests
                         OrderDate = DateTime.Parse("1997-10-13T00:00:00"),
                         Total = 330m
                     }
-                }
+                },
+                Region = "Germany"
             },
             new Customer
             {
@@ -195,7 +196,8 @@ namespace Task1.Tests
                         OrderDate = DateTime.Parse("1997-11-28T00:00:00"),
                         Total = 320m
                     }
-                }
+                },
+                Region = "Mexico"
             },
             new Customer
             {
@@ -244,7 +246,7 @@ namespace Task1.Tests
                     {
                         OrderID = 10383,
                         OrderDate = DateTime.Parse("1996-12-16T00:00:00"),
-                        Total = 899m
+                        Total = 899.5m
                     }
                 }
             },
@@ -271,7 +273,8 @@ namespace Task1.Tests
                         OrderDate = DateTime.Parse("1997-04-15T00:00:00"),
                         Total = 0.3m
                     }
-                }
+                },
+                Region = "London"
             },
             new Customer
             {
@@ -285,6 +288,65 @@ namespace Task1.Tests
                 Fax = "(171) 555-6720",
                 Orders = new Order[0],
                 Region = "London"
+            },
+            new Customer
+            {
+                CustomerID = "WOLZA",
+                CompanyName = "Wolski  Zajazd",
+                Address = "ul. Filtrowa 68",
+                City = "Warszawa",
+                PostalCode = "01-012qw",
+                Country = "Poland",
+                Phone = "642-7012",
+                Fax = "642-7012",
+                Orders = new []
+                {
+                    new Order
+                    {
+                        OrderID = 105037,
+                        OrderDate = DateTime.Parse("1996-04-15T00:00:00"),
+                        Total = 2m
+                    }
+                },
+                Region = "Poland"
+            },
+            new Customer
+            {
+                CustomerID = "WOLZA enc",
+                CompanyName = "Wolski  Zajazd",
+                Address = "ul. Filtrowa 69",
+                City = "Warszawa",
+                PostalCode = "abcrebInc",
+                Country = "Poland",
+                Phone = "(026)642-7013",
+                Fax = "(026)642-7013",
+                Orders = new Order[0],
+                Region = "Poland"
+            },
+            new Customer
+            {
+                CustomerID = "QUEEN",
+                CompanyName = "Queen Cozinha",
+                Address = "Alameda dos Canàrios, 891",
+                City = "Sao Paulo",
+                PostalCode = "05487020",
+                Country = "Brazil",
+                Phone = "(11) 555-1189",
+                Fax = "(11) 555-1189",
+                Orders = new Order[0]
+            },
+            new Customer
+            {
+                CustomerID = "LONEP",
+                CompanyName = "Lonesome Pine Restaurant",
+                Address = "89 Chiaroscuro Rd.",
+                City = "USA",
+                PostalCode = "97219",
+                Country = "Brazil",
+                Phone = "555-9573",
+                Fax = "555-9573",
+                Orders = new Order[0],
+                Region = "OR"
             },
         };
     }
