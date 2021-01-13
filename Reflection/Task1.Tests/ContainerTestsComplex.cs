@@ -41,7 +41,7 @@ namespace Task1.Tests
         {
             container.AddType(typeof(CustomerDAL), typeof(ICustomerDAL));
 
-            var customerDAL = container.Get<CustomerDAL>();
+            var customerDAL = container.Get<CustomerDAL>(); // <- exactly not .Get<ICustomerDAL>() ????? I think it's an issue 
 
             Assert.That(customerDAL, Is.Not.Null);
             Assert.That(customerDAL, Is.InstanceOf<CustomerDAL>());
